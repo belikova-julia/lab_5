@@ -34,7 +34,7 @@ public class ResponseTimeMeterApp {
     private static final String HOST = "localhost";
     private static final String SYSTEM_NAME = "timer";
 
-    private static final String START_MESSAGE = "Start";
+    private static final String START_MESSAGE = "Start\n";
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/\n";
     private static final String RESULT_INFO_FORMAT = "URL: %s Time: %.2f\n";
 
@@ -46,7 +46,7 @@ public class ResponseTimeMeterApp {
 
 
     public static void main(String[] args) throws IOException {
-        System.out.println(START_MESSAGE);
+        System.out.print(START_MESSAGE);
         ActorSystem system = ActorSystem.create(SYSTEM_NAME);
         ActorRef cash = system.actorOf(Props.create(CashActor.class), "cash");
         final Http http = Http.get(system);
