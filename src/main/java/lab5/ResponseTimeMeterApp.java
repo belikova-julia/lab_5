@@ -13,6 +13,7 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
 import akka.japi.Pair;
 import akka.pattern.Patterns;
+
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
@@ -38,8 +39,8 @@ public class ResponseTimeMeterApp {
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/\n";
     private static final String RESULT_INFO_FORMAT = "URL: %s Time: %.2f\n";
 
-    private static String REQUEST_TEST_URL = "testUrl";
-    private static String REQUEST_COUNT = "count";
+    private static final String REQUEST_TEST_URL = "testUrl";
+    private static final String REQUEST_COUNT = "count";
 
     private static int MAP_PARALLEL = 2;
     private static Duration TIMEOUT = Duration.ofSeconds(5);
@@ -83,7 +84,7 @@ public class ResponseTimeMeterApp {
                                     return Source.from(Collections.singletonList(req))
                                             .toMat(createSink(req.second()), Keep.right())
                                             .run(materializer)
-                                            .thenApply(resTime -> new Pair<>(req.first(), (float)resTime/req.second());
+                                            .thenApply(resTime -> new Pair<>(req.first(), (float)resTime/req.second()));
                                 }))
                 .map(res -> {
                     cash.tell(new StoreMessage(res.first(), res.second()), ActorRef.noSender());
