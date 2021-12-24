@@ -27,7 +27,7 @@ public class ResponseTimeMeterApp {
         ActorSystem system = ActorSystem.create(SYSTEM_NAME);
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ;
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow();
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(HOST, PORT),
