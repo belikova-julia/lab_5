@@ -76,9 +76,9 @@ public class ResponseTimeMeterApp {
                         MAP_PARALLEL,
                         req -> Patterns
                                 .ask(cash, req.first(), TIMEOUT)
-                                .thenCompose(t -> {
-                                    if ((float)t >= 0)
-                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)t));
+                                .thenCompose(time -> {
+                                    if ((float)time >= 0)
+                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)time));
                                     return Source.from(Collections.singletonList(req))
                                             .toMat(createSink(req.second()), Keep.right())
                                             .run(materializer)
