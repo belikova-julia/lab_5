@@ -36,6 +36,7 @@ public class ResponseTimeMeterApp {
 
     private static final String START_MESSAGE = "Start";
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
+    private static final String
 
     private static String REQUEST_TEST_URL = "testUrl";
     private static String REQUEST_COUNT = "count";
@@ -84,6 +85,10 @@ public class ResponseTimeMeterApp {
                                             .run(materializer)
                                             .thenApply(resTime -> new Pair<>(req.first(), (float)resTime/req.second());
                                 }))
+                .map(res -> {
+                    cash.tell(new StoreMessage(res.first(), res.second()), ActorRef.noSender());
+                    return HttpResponse.create().withEntity(res.first() + " - " + res.second() + "\n");
+                })
     }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
