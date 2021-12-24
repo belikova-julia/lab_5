@@ -16,6 +16,7 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
 public class ResponseTimeMeterApp {
@@ -28,7 +29,9 @@ public class ResponseTimeMeterApp {
 
     private static String REQUEST_TEST_URL = "testUrl";
     private static String REQUEST_COUNT = "count";
+
     private static int MAP_PARALLEL = 2;
+    private static Duration TIMEOUT = Duration.ofSeconds(3);
 
 
     public static void main(String[] args) throws IOException {
