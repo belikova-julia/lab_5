@@ -43,7 +43,7 @@ public class ResponseTimeMeterApp {
                 .thenAccept(unbound -> system.terminate());
     }
 
-    private static Flow<HttpRequest, HttpResponse, NotUsed> createFlow(ActorMaterializer materializer, CashActor cash) {
+    private static Flow<HttpRequest, HttpResponse, NotUsed> createFlow(ActorMaterializer materializer, ActorRef cash) {
         return Flow.of(HttpRequest.class).map()
     }
 }
