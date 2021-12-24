@@ -30,7 +30,7 @@ public class ResponseTimeMeterApp {
         ActorRef cashierActor = system.actorOf(Props.create(CashierActor.class), "cash");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(materializer, );
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(materializer, cashierActor);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(HOST, PORT),
