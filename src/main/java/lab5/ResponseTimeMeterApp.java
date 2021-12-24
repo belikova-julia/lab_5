@@ -96,6 +96,6 @@ public class ResponseTimeMeterApp {
                     long finalTime = System.currentTimeMillis() - startTime;
                     return CompletableFuture.completedFuture(finalTime);
                 })
-                .toMat(fold, Keep.right() );
+                .toMat(Sink.fold(0L, Long::sum), Keep.right());
     }
 }
