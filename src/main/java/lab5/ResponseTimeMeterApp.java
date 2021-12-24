@@ -16,6 +16,7 @@ import java.util.concurrent.CompletionStage;
 public class ResponseTimeMeterApp {
     private static final int PORT = 8080;
     private static final String HOST = "localhost";
+    private static final String SYSTEM_NAME = "timer";
 
     private static final String START_MESSAGE = "Start";
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
