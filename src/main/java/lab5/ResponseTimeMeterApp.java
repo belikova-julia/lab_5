@@ -20,6 +20,8 @@ import akka.stream.javadsl.Source;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -83,6 +85,7 @@ public class ResponseTimeMeterApp {
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
         return Flow.<Pair<String, Integer>>create()
-                .mapConcat()
+                .mapConcat(p -> new ArrayList<>(Collections.nCopies(p.second(), p.first())))
+                .mapAsync()
     }
 }
