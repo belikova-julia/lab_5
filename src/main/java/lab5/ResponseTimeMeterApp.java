@@ -17,6 +17,7 @@ import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
+import org.asynchttpclient.AsyncHttpClient;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -25,6 +26,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+
+import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class ResponseTimeMeterApp {
     private static final int PORT = 8080;
@@ -86,6 +89,13 @@ public class ResponseTimeMeterApp {
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
         return Flow.<Pair<String, Integer>>create()
                 .mapConcat(p -> new ArrayList<>(Collections.nCopies(p.second(), p.first())))
-                .mapAsync()
+                .mapAsync(reqNumber, url -> {
+                    AsyncHttpClient client = asyncHttpClient();
+                    long startTime = System.currentTimeMillis();
+                    client.prepareGet(url).execute();
+                    long finalTime = System.currentTimeMillis() - startTime;
+                    return CompletableFuture.completedFuture(finalTime);
+                })
+                .toMat
     }
 }
