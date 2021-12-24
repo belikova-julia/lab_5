@@ -18,6 +18,7 @@ import akka.stream.javadsl.Source;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
@@ -71,7 +72,8 @@ public class ResponseTimeMeterApp {
                                 .thenCompose(t -> {
                                     if ((float)t >= 0)
                                         return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)t));
-                                    return Source.from()
+                                    return Source.from(Collections.singletonList(r))
+                                            .toMat(testSink, Keep.right()).run(materializer);
 
                                 }))
     }
