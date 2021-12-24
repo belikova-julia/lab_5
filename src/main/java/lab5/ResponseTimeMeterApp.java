@@ -35,7 +35,7 @@ public class ResponseTimeMeterApp {
     private static final String SYSTEM_NAME = "timer";
 
     private static final String START_MESSAGE = "Start";
-    private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
+    private static final String START_INFO_FORMAT = "Server online at http://%s:%d/\n";
     private static final String RESULT_INFO_FORMAT = "URL: %s Time: %.2f\n";
 
     private static String REQUEST_TEST_URL = "testUrl";
