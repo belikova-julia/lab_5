@@ -83,7 +83,7 @@ public class ResponseTimeMeterApp {
                                             .toMat(createSink(req.second()), Keep.right())
                                             .run(materializer)
                                             .thenApply(resultTime -> new Pair<>(req.first(), (float)resultTime/req.second()));
-                                }));
+                                }))
     }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
