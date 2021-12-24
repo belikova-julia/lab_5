@@ -14,6 +14,8 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Keep;
+import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 
 import java.io.IOException;
@@ -72,9 +74,12 @@ public class ResponseTimeMeterApp {
                                 .thenCompose(t -> {
                                     if ((float)t >= 0)
                                         return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)t));
-                                    return Source.from(Collections.singletonList(r))
-                                            .toMat(testSink, Keep.right()).run(materializer);
+                                    return Source.from(Collections.singletonList(req))
+                                            .toMat(testSink, Keep.right())
+                                            .run(materializer);
 
-                                }))
+                                }));
     }
+
+    private static Sink<Pair<String, Integer>, CompletionStage<Long>> 
 }
