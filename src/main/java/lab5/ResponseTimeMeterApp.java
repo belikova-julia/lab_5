@@ -82,6 +82,7 @@ public class ResponseTimeMeterApp {
     }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
-        return 
+        return Flow.<Pair<String, Integer>>create()
+                .mapConcat()
     }
 }
