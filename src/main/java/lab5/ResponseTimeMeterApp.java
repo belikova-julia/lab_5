@@ -27,10 +27,10 @@ public class ResponseTimeMeterApp {
     public static void main(String[] args) throws IOException {
         System.out.println(START_MESSAGE);
         ActorSystem system = ActorSystem.create(SYSTEM_NAME);
-        ActorRef cashActor = system.actorOf(Props.create(CashActor.class), "cash");
+        ActorRef cash = system.actorOf(Props.create(CashActor.class), "cash");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(materializer, cashActor);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(materializer, cash);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(HOST, PORT),
@@ -41,5 +41,9 @@ public class ResponseTimeMeterApp {
         binding
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
+    }
+
+    private static Flow<HttpRequest, HttpResponse, NotUsed> createFlow(ActorMaterializer materializer, CashActor cash) {
+        
     }
 }
