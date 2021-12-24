@@ -24,6 +24,8 @@ public class ResponseTimeMeterApp {
     private static final String START_MESSAGE = "Start";
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
 
+    private static String 
+
 
     public static void main(String[] args) throws IOException {
         System.out.println(START_MESSAGE);
@@ -47,7 +49,11 @@ public class ResponseTimeMeterApp {
     private static Flow<HttpRequest, HttpResponse, NotUsed> createFlow(ActorMaterializer materializer, ActorRef cash) {
         return Flow.of(HttpRequest.class)
                 .map(req -> {
-                    Query query = req.getUri().query()
+                    Query query = req.getUri().query();
+                    return new Pair<>(
+                            query.get().get(),
+                            Integer.parseInt(query.get().get())
+                    );
                 })
     }
 }
