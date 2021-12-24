@@ -52,8 +52,8 @@ public class ResponseTimeMeterApp {
                 .map(req -> {
                     Query query = req.getUri().query();
                     return new Pair<>(
-                            query.get().get(),
-                            Integer.parseInt(query.get().get())
+                            query.get(REQUEST_TEST_URL).get(),
+                            Integer.parseInt(query.get(REQUEST_COUNT).get())
                     );
                 })
     }
