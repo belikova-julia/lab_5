@@ -14,9 +14,11 @@ import akka.japi.Pair;
 import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Source;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class ResponseTimeMeterApp {
@@ -31,7 +33,7 @@ public class ResponseTimeMeterApp {
     private static String REQUEST_COUNT = "count";
 
     private static int MAP_PARALLEL = 2;
-    private static Duration TIMEOUT = Duration.ofSeconds(3);
+    private static Duration TIMEOUT = Duration.ofSeconds(5);
 
 
     public static void main(String[] args) throws IOException {
@@ -64,7 +66,13 @@ public class ResponseTimeMeterApp {
                 })
                 .mapAsync(
                         MAP_PARALLEL,
-                        (Pair<String, Integer> req) ->
-                                Patterns.ask(cash, req.first(), ))
+                        req -> Patterns
+                                .ask(cash, req.first(), TIMEOUT)
+                                .thenCompose(t -> {
+                                    if ((float)t >= 0)
+                                        return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)t));
+                                    return Source.forom()
+
+                                }))
     }
 }
