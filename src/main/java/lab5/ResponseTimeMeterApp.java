@@ -24,11 +24,10 @@ public class ResponseTimeMeterApp {
 
     public static void main(String[] args) throws IOException {
         System.out.println(START_MESSAGE);
-        ActorSystem system = ActorSystem.create("routes");
+        ActorSystem system = ActorSystem.create(SYSTEM_NAME);
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = <вызов
-        метода которому передаем Http, ActorSystem и ActorMaterializer>;
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ;
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(HOST, PORT),
