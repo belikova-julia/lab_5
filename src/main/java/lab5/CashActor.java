@@ -12,7 +12,7 @@ public class CashActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match()
+                .match(StoreMessage.class, req -> cash.put(req.getUrl(), req.getAvgTime()))
                 .match()
                 .build()
     }
