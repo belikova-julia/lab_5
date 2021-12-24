@@ -82,7 +82,7 @@ public class ResponseTimeMeterApp {
                                     return Source.from(Collections.singletonList(req))
                                             .toMat(createSink(req.second()), Keep.right())
                                             .run(materializer)
-                                            .thenApply(resTime -> new Pair<>(req.first(), (float)resTime/req.second()))
+                                            .thenApply(resTime -> new Pair<>(req.first(), (float)resTime/req.second());
                                 }))
     }
 
