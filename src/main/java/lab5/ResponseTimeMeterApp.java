@@ -81,5 +81,5 @@ public class ResponseTimeMeterApp {
                                 }));
     }
 
-    private static Sink<Pair<String, Integer>, CompletionStage<Long>> 
+    private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink()
 }
