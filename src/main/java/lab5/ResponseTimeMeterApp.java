@@ -80,8 +80,9 @@ public class ResponseTimeMeterApp {
                                     if ((float)t >= 0)
                                         return CompletableFuture.completedFuture(new Pair<>(req.first(), (float)t));
                                     return Source.from(Collections.singletonList(req))
-                                            .toMat(testSink, Keep.right())
-                                            .run(materializer);
+                                            .toMat(createSink(req.second()), Keep.right())
+                                            .run(materializer)
+                                            .thenApply(t -> return new Pair<>(req.first(), (float)t/req.second()));
 
                                 }));
     }
