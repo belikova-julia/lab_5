@@ -31,7 +31,7 @@ public class ResponseTimeMeterApp {
                 ConnectHttp.toHost(HOST, PORT),
                 materializer
         );
-        System.out.println("Server online at http://localhost:8080/");
+        System.out.printf("Server online at http://%s:%d/", HOST, PORT);
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
