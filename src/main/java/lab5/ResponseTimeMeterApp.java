@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class ResponseTimeMeterApp {
+    private static final int PORT = 8080;
+    private static final String HOST = "localhost";
+
+
     public static void main(String[] args) throws IOException {
         System.out.println("start!");
         ActorSystem system = ActorSystem.create("routes");
@@ -24,7 +28,7 @@ public class ResponseTimeMeterApp {
         метода которому передаем Http, ActorSystem и ActorMaterializer>;
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost("localhost", 8080),
+                ConnectHttp.toHost(HOST, PORT),
                 materializer
         );
         System.out.println("Server online at http://localhost:8080/");
