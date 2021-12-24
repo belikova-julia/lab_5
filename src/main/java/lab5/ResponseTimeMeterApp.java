@@ -25,6 +25,7 @@ public class ResponseTimeMeterApp {
     private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
 
     private static String TEST_URL = "testUrl";
+    private static String COUNT = "count";
 
 
     public static void main(String[] args) throws IOException {
