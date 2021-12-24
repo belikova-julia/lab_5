@@ -11,6 +11,7 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
 import akka.japi.Pair;
+import akka.pattern.Patterns;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
@@ -58,6 +59,9 @@ public class ResponseTimeMeterApp {
                             Integer.parseInt(query.get(REQUEST_COUNT).get())
                     );
                 })
-                .mapAsync(MAP_PARALLEL, ())
+                .mapAsync(
+                        MAP_PARALLEL,
+                        (Pair<String, Integer> req) ->
+                                Patterns.ask(cash, req.first(), ))
     }
 }
