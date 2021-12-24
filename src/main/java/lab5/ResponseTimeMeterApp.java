@@ -89,7 +89,7 @@ public class ResponseTimeMeterApp {
                     cash.tell(new StoreMessage(res.first(), res.second()), ActorRef.noSender());
                     String resEntity = String.format(RESULT_INFO_FORMAT, res.first(), res.second());
                     return HttpResponse.create().withEntity(resEntity);
-                })
+                });
     }
 
     private static Sink<Pair<String, Integer>, CompletionStage<Long>> createSink(int reqNumber) {
