@@ -87,6 +87,7 @@ public class ResponseTimeMeterApp {
                                 }))
                 .map(res -> {
                     cash.tell(new StoreMessage(res.first(), res.second()), ActorRef.noSender());
+                    response = RESULT_INFO_FORMAT
                     return HttpResponse.create().withEntity(res.first() + " - " + res.second() + "\n");
                 })
     }
