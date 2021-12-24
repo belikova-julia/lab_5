@@ -1,7 +1,9 @@
 package lab5;
 
 import akka.NotUsed;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -25,6 +27,7 @@ public class ResponseTimeMeterApp {
     public static void main(String[] args) throws IOException {
         System.out.println(START_MESSAGE);
         ActorSystem system = ActorSystem.create(SYSTEM_NAME);
+        ActorRef casherActor = system.actorOf(Props.create(CashierActor.class), "cash");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = createFlow(materializer, );
