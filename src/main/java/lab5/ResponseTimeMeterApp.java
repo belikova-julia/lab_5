@@ -17,13 +17,15 @@ public class ResponseTimeMeterApp {
     private static final int PORT = 8080;
     private static final String HOST = "localhost";
 
+    private static final String START_MESSAGE = "Start";
+    private static final String START_INFO_FORMAT = "Server online at http://%s:%d/";
+
 
     public static void main(String[] args) throws IOException {
-        System.out.println("start!");
+        System.out.println(START_MESSAGE);
         ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
-        final ActorMaterializer materializer =
-                ActorMaterializer.create(system);
+        final ActorMaterializer materializer = ActorMaterializer.create(system);
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = <вызов
         метода которому передаем Http, ActorSystem и ActorMaterializer>;
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
@@ -31,7 +33,7 @@ public class ResponseTimeMeterApp {
                 ConnectHttp.toHost(HOST, PORT),
                 materializer
         );
-        System.out.printf("Server online at http://%s:%d/", HOST, PORT);
+        System.out.printf(START_INFO_FORMAT, HOST, PORT);
         System.in.read();
         binding
                 .thenCompose(ServerBinding::unbind)
