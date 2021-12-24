@@ -57,6 +57,6 @@ public class ResponseTimeMeterApp {
                             Integer.parseInt(query.get(REQUEST_COUNT).get())
                     );
                 })
-                .mapAsync(MAP_PARALLEL)
+                .mapAsync(MAP_PARALLEL, ())
     }
 }
