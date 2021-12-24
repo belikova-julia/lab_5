@@ -26,7 +26,7 @@ public class ResponseTimeMeterApp {
 
     private static String REQUEST_TEST_URL = "testUrl";
     private static String REQUEST_COUNT = "count";
-    private static String MAP_PARALLEL = 2;
+    private static int MAP_PARALLEL = 2;
 
 
     public static void main(String[] args) throws IOException {
